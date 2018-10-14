@@ -1,0 +1,4 @@
+/usr/share/man usr/share/npm/man
+/usr/share/npm usr/lib/nodejs/npm
+/usr/share/npm/bin/npm-cli.js usr/bin/npm
+/usr/share/npm/bin/npx-cli.js usr/bin/npx

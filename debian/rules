@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+%:
+	dh $@ --with bash-completion
+
+override_dh_auto_build:
+ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
+	make doc
+endif
+
+override_dh_auto_clean:
+	-make clean
+
+override_dh_fixperms:
+	dh_fixperms
+
+	chmod a-x debian/npm/usr/share/npm/lib/utils/completion.sh
+	chmod a-x debian/npm/usr/share/npm/node_modules/uid-number/get-uid-gid.js
+	chmod a-x debian/npm/usr/share/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
+	chmod a+x debian/npm/usr/share/npm/bin/npm-cli.js
+
+override_dh_auto_install:
+	# NO OP
+
+override_dh_install:
+	dh_install
+
+	rm -rf \
+		debian/npm/usr/share/npm/node_modules/node-gyp \
+		debian/npm/usr/share/npm/node_modules/semver
+
+	find debian/npm -iname LICENSE -delete
+	find debian/npm -iname LICENCE -delete
+	find debian/npm -iname LICENSE.txt -delete
+	find debian/npm -iname LICENSE.md -delete
+	find debian/npm/usr/share/npm/node_modules -name .npmignore -delete
+	find debian/npm/usr/share/npm/node_modules -name .eslintrc.json -delete
+	find debian/npm/usr/share/npm/node_modules -name .eslintrc -delete
+
+override_dh_auto_test:
+	cp debian/npmrc npmrc
+

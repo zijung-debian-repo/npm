@@ -1,0 +1,54 @@
+From: Zijung Chueh <i@zijung.me>
+Date: Sun, 14 Oct 2018 13:41:26 +0800
+Subject: Use Debian packaged marked and marked-man to build Documentation
+
+---
+ Makefile             | 10 ++++++----
+ scripts/doc-build.sh |  4 ++--
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 4e00647..05ecab6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -150,13 +150,15 @@ html/doc/misc/%.html: doc/misc/%.md $(html_docdeps) $(build-doc-tools)
+ 
+ marked: node_modules/.bin/marked
+ 
+-node_modules/.bin/marked:
+-	node bin/npm-cli.js install marked --no-global --no-timing --no-save
++#node_modules/.bin/marked:
++#	node bin/npm-cli.js install marked --no-timing --prefer-offline
++.PHONY: node_modules/.bin/marked
+ 
+ marked-man: node_modules/.bin/marked-man
+ 
+-node_modules/.bin/marked-man:
+-	node bin/npm-cli.js install marked-man --no-global --no-timing --no-save
++#node_modules/.bin/marked-man:
++#	node bin/npm-cli.js install marked-man --no-timing --prefer-offline
++.PHONY: node_modules/.bin/marked-man
+ 
+ doc: man
+ 
+diff --git a/scripts/doc-build.sh b/scripts/doc-build.sh
+index a37a5e2..744adb1 100755
+--- a/scripts/doc-build.sh
++++ b/scripts/doc-build.sh
+@@ -47,14 +47,14 @@ man_replace_tokens () {
+ 
+ case $dest in
+   *.[1357])
+-    ./node_modules/.bin/marked-man --roff $src \
++    marked-man --roff $src \
+     | man_replace_tokens > $dest
+     exit $?
+     ;;
+   *.html)
+     url=${dest/html\//}
+     (cat html/dochead.html && \
+-     cat $src | ./node_modules/.bin/marked &&
++     cat $src | marked &&
+      cat html/docfoot.html)\
+     | html_replace_tokens $url \
+     > $dest

@@ -1,0 +1,17 @@
+From: Zijung Chueh <i@zijung.me>
+Date: Sun, 14 Oct 2018 13:24:03 +0800
+Subject: remove shebang from completion script
+
+---
+ lib/utils/completion.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/utils/completion.sh b/lib/utils/completion.sh
+index c549b31..070691b 100755
+--- a/lib/utils/completion.sh
++++ b/lib/utils/completion.sh
+@@ -1,4 +1,3 @@
+-#!/bin/bash
+ ###-begin-npm-completion-###
+ #
+ # npm command completion script

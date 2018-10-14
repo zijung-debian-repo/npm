@@ -1,0 +1,3 @@
+0001-remove-shebang-from-completion-script.patch
+0002-Use-the-Debian-packaged-version-of-node-gyp.patch
+0003-Use-Debian-packaged-marked-and-marked-man-to-build-D.patch

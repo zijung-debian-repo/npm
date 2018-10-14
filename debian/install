@@ -1,0 +1,15 @@
+bin/*.js usr/share/npm/bin
+debian/npmrc usr/share/npm
+doc/* usr/share/doc/npm
+lib/*.js usr/share/npm/lib
+lib/auth/*.js usr/share/npm/lib/auth
+lib/config/*.js usr/share/npm/lib/config
+lib/doctor/*.js usr/share/npm/lib/doctor
+lib/install/*.js usr/share/npm/lib/install
+lib/install/action/*.js usr/share/npm/lib/install/action
+lib/search/*.js usr/share/npm/lib/search
+lib/utils/*.js usr/share/npm/lib/utils
+lib/utils/completion usr/share/npm/lib/utils
+lib/utils/completion.sh usr/share/npm/lib/utils
+node_modules usr/share/npm
+package.json usr/share/npm
